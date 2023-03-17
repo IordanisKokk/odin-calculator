@@ -32,7 +32,7 @@ body {
     justify-content: space-between;
     align-items: center; */
     display:flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     background-color: #1F2937;
     justify-content: center;
     align-items: center;
@@ -41,11 +41,8 @@ body {
     font-size: 11px;
     font-weight: lighter;
     width: 100%;
+    gap: 5px;
 
-}
-
-.footer h3{
-    flex-grow: 1;
 }
 
 .main{
@@ -93,10 +90,12 @@ button {
 
 
 .displayRow{
-    flex-basis: 80px;
+    flex-basis: 120px;
+    height: 250px;
     width: 300px;
     border: black solid 5px ;
     background-color: rgb(49, 85, 49);
+    padding: 0px;
 }
 
 .display {
@@ -105,15 +104,19 @@ button {
     justify-content: flex-start;
     align-items: last baseline;
     font-family: Courier, monospace;
-    font-size: 30px;
-    padding: 10px;
+    font-size: 25px;
+    padding: 0px;
 }
 
 .previousDisplay{
-    font-size: 10px;
+    font-size: 20px;
+    margin: 0px;
+    padding: 0px;
+    height: 40px;
 }
 
 .displayNumber {
+    height: 100px;
     margin: 0px;
     padding: 0px;
 }

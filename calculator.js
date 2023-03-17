@@ -39,19 +39,24 @@ function operate(operator, number1, number2) {
             return subtract(number1, number2);
             break;
         case "*":
-            if(number1 === 0){
+            console.log(number1)
+            if (number1 === 0 || number1 === null || number1 === '') {
                 return number2;
             }
+            console.log("TO OPERATE VAR: " + toOperate)
             console.log(`multiplying ${number1} with ${number2}`);
             return multiply(number1, number2);
             break;
         case "/":
+            if (number1 === 0 || number1 === null || number1 === '') {
+                return number2;
+            }
             return divide(number1, number2);
             break;
     }
 }
 
-function evaluateExpression(){
+function evaluateExpression() {
     console.log("EVALUATING EXPRESSION: " + expression)
 }
 
@@ -65,6 +70,17 @@ function numberInput(button) {
     display.textContent = button.textContent;
 }
 
+function roundResult(result){
+    return result = Math.round(result * 10000 ) / 10000 ;
+}
+
+function changeDisplay(result) {
+    result = roundResult(result);
+    previousDisplay.textContent = '';
+    display.textContent = result;
+    toOperate = false;
+}
+
 function getButtons() {
     console.log("getButtons")
     const buttons = document.querySelectorAll('.button');
@@ -72,74 +88,79 @@ function getButtons() {
     buttons.forEach(button => {
         if (button.classList.contains('operation')) {
             button.addEventListener('click', () => {
-                
-                if(operator === ''){
+                console.log("TO OPERATE VAR: " + toOperate)
+                if (operator === '') {
                     operator = button.textContent;
                 }
-                if(display.textContent !== '' && previousDisplay.textContent !== ''){
+                if (display.textContent !== '' && previousDisplay.textContent !== ' ') {
                     toOperate = true;
                 }
-                if(toOperate){
+                if (toOperate) {
                     result = operate(operator, previousDisplay.textContent, display.textContent)
-                    previousDisplay.textContent = '';
-                    display.textContent = result;
-                    toOperate = false;
-                    
+                    changeDisplay(result);
+
                 }
                 inputingSameNumber = false;
                 operator = button.textContent;
-                console.log(inputingSameNumber)
+                console.log("inputingSameNumber" + inputingSameNumber)
 
             })
         }
         if (button.classList.contains('number')) {
             button.addEventListener('click', () => {
-                console.log(toOperate)
-                if(!inputingSameNumber){
+                console.log("toOperate var: " + toOperate)
+                if (!inputingSameNumber) {
                     previousDisplay.textContent = display.textContent;
                     display.textContent = button.textContent;
                     inputingSameNumber = true;
-                    toOperate = true;
+                    if (display.textContent !== '' && previousDisplay.textContent !== ' ') {
+                        toOperate = true;
+                    }
 
-                }else{
-                    if(display.textContent === '0'){
+                } else {
+                    if (display.textContent === '0') {
                         display.textContent = button.textContent;
-                    }else{
+                    } else {
                         display.textContent += button.textContent;
                     }
                 }
             })
         }
-        if(button.classList.contains('equalSign')){
+        if (button.classList.contains('equalSign')) {
             button.addEventListener('click', () => {
-                if(display.textContent !== '' && previousDisplay.textContent !== ''){
+                if (display.textContent !== '' && previousDisplay.textContent !== '') {
                     toOperate = true;
                 }
-                if(toOperate){
+                if (toOperate === true) {
                     result = operate(operator, previousDisplay.textContent, display.textContent)
-                    previousDisplay.textContent = '';
-                    display.textContent = result;
-                    toOperate = false;
+                    changeDisplay(result);
                 }
             });
         }
-        if(button.classList.contains('clearButton')){
-            button.addEventListener('click', () =>{
+        if (button.classList.contains('clearButton')) {
+            button.addEventListener('click', () => {
                 expression = '';
                 result = '';
                 display.textContent = '0';
                 previousDisplay.textContent = '';
+                toOperate = false;
             })
         }
-        if(button.classList.contains('deleteButton')){
+        if (button.classList.contains('deleteButton')) {
             button.addEventListener('click', () => {
-                if(display.textContent === '0') return;
-                if(display.textContent.length === 1){
+                if (display.textContent === '0') return;
+                if (display.textContent.length === 1) {
                     display.textContent = '0';
                     return;
                 }
                 disp = display.textContent
-                display.textContent = disp.slice(0, disp.length-1) 
+                display.textContent = disp.slice(0, disp.length - 1)
+            })
+        }
+
+        if (button.classList.contains('buttonDot')) {
+            button.addEventListener('click', () => {
+                display.textContent += '.';
             })
         }
     })
@@ -147,3 +168,10 @@ function getButtons() {
 }
 
 getButtons();
+
+expression = '';
+result = '';
+display.textContent = '0';
+previousDisplay.textContent = '';
+
+toOperate = false;
