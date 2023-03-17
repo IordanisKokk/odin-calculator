@@ -55,14 +55,25 @@ body {
 
 }
 
+#addition, #subtraction, #division, #product {
+    background-color: #729cd3;
+    font-size: 35px;
+} 
+
 button {
-    width: 100px;
+    width: 25%;
     height: 75px;
     background-color: #9e9e9e;
     color: white;
     font-weight: 900;
     font-family: Courier, monospace;
+    font-size: 25px;
 }
+
+.clearButton, .deleteButton {
+    width: 45%
+}
+
 
 .calculator{
     /* margin: 5px; */
